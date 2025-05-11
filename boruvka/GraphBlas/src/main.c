@@ -3,6 +3,10 @@
 #include "GraphBLAS.h"
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <math.h>
+#include <stdlib.h>
+#include <dirent.h>
 
 int read_dimacs_file(GrB_Matrix* G, char* filename) {
     FILE *file = fopen(filename, "r");
@@ -12,12 +16,12 @@ int read_dimacs_file(GrB_Matrix* G, char* filename) {
         return -1;
     }
 
-    char str[100];
+    char str[256];
 
     int cnodes, cedges;
 
     // read header
-    while(fgets(str, 100, file)) {
+    while(fgets(str, 256, file)) {
         if (str[0] == 'c') {
             continue;
         } else if (str[0] == 'p') {
@@ -42,7 +46,7 @@ int read_dimacs_file(GrB_Matrix* G, char* filename) {
     int64_t *values = malloc(cedges * sizeof(int64_t));
     int i = 0;
 
-    while(fgets(str, 100, file)) {
+    while(fgets(str, 256, file)) {
         if (str[0] == 'c') {
             continue;
         } else if (str[0] == 'a') {
@@ -88,12 +92,93 @@ int read_dimacs_file(GrB_Matrix* G, char* filename) {
     return 0;
 }
 
+const int REPEATS = 30;
+
+int run_experiment(char* filename) {
+    GrB_Matrix G;
+    read_dimacs_file(&G, filename);
+
+    double* time_array = malloc(sizeof(double) * REPEATS);
+
+    for (int i = 0; i < REPEATS; i++) {
+        GrB_Matrix result = NULL;
+
+        clock_t begin = clock();
+        GrB_Info info = LAGraph_msf(&result, G, true, NULL);
+        if (info != GrB_SUCCESS) {
+            printf("Error in Boruvka: %d.", info);
+            return -1;
+        }
+        clock_t end = clock();
+
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        time_array[i] = time_spent;
+
+        GrB_free(&result);    
+    }
+
+    free(time_array);
+    GrB_free(&G);
+
+    // --- Statistics
+
+    double sum = 0.0;
+
+    for (int i = 0; i < REPEATS; i++) 
+        sum += time_array[i];
+
+    double mean = sum / REPEATS;
+
+    double variance = 0.0;
+
+    for (int i = 0; i < REPEATS; i++) {
+        double diff = time_array[i] - mean;
+        variance += diff * diff;
+    }
+
+    variance /= (REPEATS - 1);
+
+    double stddev = sqrt(variance);
+    double sem = stddev / sqrt(REPEATS);
+
+    double t_value = 2.042;
+    double margin = t_value * sem;
+
+    printf("Mean = %.6fs\n", mean);
+    printf("StdDev = %.6fs\n", stddev);
+    printf("95%% CI = %.6f ± %.6fs\n", mean, margin);
+
+    return 0;
+}
+
 int main(void) {
     GrB_init(GrB_BLOCKING);
-    GrB_Matrix G;
+    LAGraph_Init(NULL);
 
-    read_dimacs_file(&G, "../../graph-utils/USA-road-d.BAY.gr");
+    const char *folder_path = "../../graph-utils/exp1_2_dataset";
+    DIR *dir = opendir(folder_path);
+
+    if (dir == NULL) {
+        perror("opendir failed.");
+        return -1;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        printf("Run experiment for: %s...\n", entry->d_name);
+
+        char full_path[4096];
+        snprintf(full_path, sizeof(full_path), "%s/%s", folder_path, entry->d_name);
+
+        run_experiment(full_path);
+    }
+
+    closedir(dir);
+
     GrB_finalize();
-
     return 0;
 }
