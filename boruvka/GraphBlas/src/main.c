@@ -92,9 +92,9 @@ int read_dimacs_file(GrB_Matrix* G, char* filename) {
     return 0;
 }
 
-const int REPEATS = 30;
+const int REPEATS = 100;
 
-int run_experiment(char* filename) {
+int run_experiment(char* filename, FILE* logger) {
     GrB_Matrix G;
     read_dimacs_file(&G, filename);
 
@@ -117,7 +117,6 @@ int run_experiment(char* filename) {
         GrB_free(&result);    
     }
 
-    free(time_array);
     GrB_free(&G);
 
     // --- Statistics
@@ -139,28 +138,36 @@ int run_experiment(char* filename) {
     variance /= (REPEATS - 1);
 
     double stddev = sqrt(variance);
-    double sem = stddev / sqrt(REPEATS);
 
-    double t_value = 2.042;
-    double margin = t_value * sem;
+    double z = 1.96;
+    double margin = z * (stddev / sqrt(REPEATS));
 
     printf("Mean = %.6fs\n", mean);
     printf("StdDev = %.6fs\n", stddev);
-    printf("95%% CI = %.6f ± %.6fs\n", mean, margin);
+    printf("95%% CI = ±%.6fs\n", margin);
 
+    fprintf(logger, "Mean = %.6fs ", mean);
+    fprintf(logger, "StdDev = %.6fs ", stddev);
+    fprintf(logger, "95%% CI = ±%.6fs\n", margin);
+
+    free(time_array);
     return 0;
 }
 
-int main(void) {
-    GrB_init(GrB_BLOCKING);
-    LAGraph_Init(NULL);
-
-    const char *folder_path = "../../graph-utils/exp1_2_dataset";
+void run_dataset_experiments(char* foldername) {
+    const char *folder_path = foldername;
     DIR *dir = opendir(folder_path);
 
     if (dir == NULL) {
         perror("opendir failed.");
-        return -1;
+        return;
+    }
+
+    FILE *logger = fopen("logs.txt", "a");
+    if (logger == NULL) {
+        perror("fopen failed.");
+        closedir(dir);
+        return;
     }
 
     struct dirent *entry;
@@ -170,14 +177,25 @@ int main(void) {
         }
 
         printf("Run experiment for: %s...\n", entry->d_name);
-
+        fprintf(logger, "Run experiment for: %s...\n" ,entry->d_name);
+        
         char full_path[4096];
         snprintf(full_path, sizeof(full_path), "%s/%s", folder_path, entry->d_name);
 
-        run_experiment(full_path);
+        run_experiment(full_path, logger);
+        fflush(logger);
     }
 
+    fclose(logger);
     closedir(dir);
+}
+
+int main(void) {
+    GrB_init(GrB_BLOCKING);
+    LAGraph_Init(NULL);
+
+    run_dataset_experiments("../../graph-utils/exp1_2_dataset");
+    run_dataset_experiments("../../graph-utils/exp_2_2_dataset");
 
     GrB_finalize();
     return 0;
