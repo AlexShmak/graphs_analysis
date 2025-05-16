@@ -196,6 +196,7 @@ int main(void) {
 
     run_dataset_experiments("../../graph-utils/exp1_2_dataset");
     run_dataset_experiments("../../graph-utils/exp_2_2_dataset");
+    run_dataset_experiments("../../graph-utils/exp2_dataset");
 
     GrB_finalize();
     return 0;
