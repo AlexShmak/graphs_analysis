@@ -37,5 +37,5 @@
 1. Оцениваем результаты для всех графов.
 
 ### [Подробнее](boruvka/pres-1.pdf)
-### [Результаты](boruvka/pres-2.pdf)
+### [Результаты для GraphBLAS](boruvka/pres-2.pdf)
 
