@@ -1,6 +1,6 @@
 c Test graph
 c
-p sp 5 5
+p sp 5 10
 c
 a 1 2 5
 a 2 1 5
