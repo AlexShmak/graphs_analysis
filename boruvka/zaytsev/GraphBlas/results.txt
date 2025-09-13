@@ -1,0 +1,256 @@
+Run experiment for: CAL.gr
+Mean = 2.061985s
+StdDev = 0.148546s
+95% CI = ±0.019115s
+Run experiment for: FLA.gr
+Mean = 1.877159s
+StdDev = 0.023548s
+95% CI = ±0.016155s
+Run experiment for: FLA.perc_1.gr
+Mean = 1.984534s
+StdDev = 0.019036s
+95% CI = ±0.015311s
+Run experiment for: FLA.perc_3.gr
+Mean = 1.919663s
+StdDev = 0.017524s
+95% CI = ±0.014348s
+Run experiment for: FLA.perc_7.gr
+Mean = 1.865614s
+StdDev = 0.081465s
+95% CI = ±0.015567s
+Run experiment for: FLA.perc_13.gr
+Mean = 1.898995s
+StdDev = 0.012554s
+95% CI = ±0.014207s
+Run experiment for: FLA.perc_15.gr
+Mean = 1.907455s
+StdDev = 0.019761s
+95% CI = ±0.018733s
+Run experiment for: BAY.gr
+Mean = 0.448784s
+StdDev = 0.025366s
+95% CI = ±0.004972s
+Run experiment for: COL.gr
+Mean = 0.512797s
+StdDev = 0.030843s
+95% CI = ±0.006045s
+Run experiment for: NW.gr
+Mean = 1.800394s
+StdDev = 0.143843s
+95% CI = ±0.018193s
+Run experiment for: LKS.gr
+Mean = 2.666081s
+StdDev = 0.152828s
+95% CI = ±0.019954s
+Run experiment for: NY.gr
+Mean = 0.646493s
+StdDev = 0.040843s
+95% CI = ±0.007045s
+Run experiment for: NE.gr
+Mean = 2.168214s
+StdDev = 0.149639s
+95% CI = ±0.015219s
+Run experiment for: LKS.perc_5.gr
+Mean = 2.624428s
+StdDev = 0.132442s
+95% CI = ±0.015959s
+Run experiment for: LKS.perc_10.gr
+Mean = 2.603358s
+StdDev = 0.097013s
+95% CI = ±0.019014s
+Run experiment for: NY.perc_10.gr
+Mean = 0.390149s
+StdDev = 0.023996s
+95% CI = ±0.004703s
+Run experiment for: NW.perc_10.gr
+Mean = 1.858300s
+StdDev = 0.189822s
+95% CI = ±0.017205s
+Run experiment for: COL.perc_1.gr
+Mean = 0.573494s
+StdDev = 0.026802s
+95% CI = ±0.005253s
+Run experiment for: LKS.perc_1.gr
+Mean = 2.621324s
+StdDev = 0.132791s
+95% CI = ±0.016027s
+Run experiment for: NE.perc_13.gr
+Mean = 2.119433s
+StdDev = 0.160252s
+95% CI = ±0.019409s
+Run experiment for: NE.perc_15.gr
+Mean = 2.124430s
+StdDev = 0.141502s
+95% CI = ±0.017734s
+Run experiment for: BAY.perc_3.gr
+Mean = 0.466333s
+StdDev = 0.040309s
+95% CI = ±0.007901s
+Run experiment for: NY.perc_7.gr
+Mean = 0.384652s
+StdDev = 0.024451s
+95% CI = ±0.004792s
+Run experiment for: CAL.perc_7.gr
+Mean = 1.922852s
+StdDev = 0.111499s
+95% CI = ±0.021854s
+Run experiment for: LKS.perc_3.gr
+Mean = 2.644713s
+StdDev = 0.121890s
+95% CI = ±0.013890s
+Run experiment for: NW.perc_5.gr
+Mean = 1.886522s
+StdDev = 0.150840s
+95% CI = ±0.019565s
+Run experiment for: CAL.perc_5.gr
+Mean = 1.956199s
+StdDev = 0.102905s
+95% CI = ±0.020169s
+Run experiment for: BAY.perc_1.gr
+Mean = 0.433877s
+StdDev = 0.025406s
+95% CI = ±0.004980s
+Run experiment for: COL.perc_13.gr
+Mean = 0.530620s
+StdDev = 0.033785s
+95% CI = ±0.006622s
+Run experiment for: COL.perc_3.gr
+Mean = 0.523297s
+StdDev = 0.029082s
+95% CI = ±0.005700s
+Run experiment for: NW.perc_13.gr
+Mean = 1.835802s
+StdDev = 0.173355s
+95% CI = ±0.017978s
+Run experiment for: NE.perc_1.gr
+Mean = 2.052875s
+StdDev = 0.114752s
+95% CI = ±0.022491s
+Run experiment for: BAY.perc_7.gr
+Mean = 0.444494s
+StdDev = 0.024466s
+95% CI = ±0.004795s
+Run experiment for: BAY.perc_10.gr
+Mean = 0.392874s
+StdDev = 0.022003s
+95% CI = ±0.004313s
+Run experiment for: NE.perc_7.gr
+Mean = 1.994061s
+StdDev = 0.139180s
+95% CI = ±0.027279s
+Run experiment for: NW.perc_1.gr
+Mean = 1.844677s
+StdDev = 0.186671s
+95% CI = ±0.019588s
+Run experiment for: FLA.perc_5.gr
+Mean = 1.850103s
+StdDev = 0.204569s
+95% CI = ±0.010096s
+Run experiment for: FLA.perc_10.gr
+Mean = 1.902099s
+StdDev = 0.169670s
+95% CI = ±0.019255s
+Run experiment for: COL.perc_7.gr
+Mean = 0.507023s
+StdDev = 0.025633s
+95% CI = ±0.005024s
+Run experiment for: NW.perc_3.gr
+Mean = 1.837533s
+StdDev = 0.183537s
+95% CI = ±0.015973s
+Run experiment for: CAL.perc_10.gr
+Mean = 1.901183s
+StdDev = 0.078520s
+95% CI = ±0.015390s
+Run experiment for: BAY.perc_15.gr
+Mean = 0.385188s
+StdDev = 0.025886s
+95% CI = ±0.005074s
+Run experiment for: NY.perc_1.gr
+Mean = 0.379938s
+StdDev = 0.023121s
+95% CI = ±0.004532s
+Run experiment for: COL.perc_10.gr
+Mean = 0.511751s
+StdDev = 0.028815s
+95% CI = ±0.005648s
+Run experiment for: NW.perc_7.gr
+Mean = 1.884841s
+StdDev = 0.136212s
+95% CI = ±0.016698s
+Run experiment for: COL.perc_15.gr
+Mean = 0.494554s
+StdDev = 0.023339s
+95% CI = ±0.004574s
+Run experiment for: NY.perc_5.gr
+Mean = 0.389055s
+StdDev = 0.019776s
+95% CI = ±0.003876s
+Run experiment for: NE.perc_3.gr
+Mean = 1.962358s
+StdDev = 0.091299s
+95% CI = ±0.017895s
+Run experiment for: CAL.perc_1.gr
+Mean = 1.909258s
+StdDev = 0.090397s
+95% CI = ±0.017718s
+Run experiment for: LKS.perc_13.gr
+Mean = 2.595290s
+StdDev = 0.089830s
+95% CI = ±0.017607s
+Run experiment for: NY.perc_15.gr
+Mean = 0.384380s
+StdDev = 0.026367s
+95% CI = ±0.005168s
+Run experiment for: NE.perc_10.gr
+Mean = 1.991989s
+StdDev = 0.100525s
+95% CI = ±0.019703s
+Run experiment for: CAL.perc_15.gr
+Mean = 1.849598s
+StdDev = 0.087725s
+95% CI = ±0.017194s
+Run experiment for: LKS.perc_15.gr
+Mean = 2.594137s
+StdDev = 0.134233s
+95% CI = ±0.016310s
+Run experiment for: NE.perc_5.gr
+Mean = 2.016216s
+StdDev = 0.118290s
+95% CI = ±0.013185s
+Run experiment for: LKS.perc_7.gr
+Mean = 2.630029s
+StdDev = 0.131879s
+95% CI = ±0.015848s
+Run experiment for: CAL.perc_13.gr
+Mean = 1.880299s
+StdDev = 0.096965s
+95% CI = ±0.019005s
+Run experiment for: CAL.perc_3.gr
+Mean = 1.941020s
+StdDev = 0.132633s
+95% CI = ±0.025996s
+Run experiment for: NY.perc_13.gr
+Mean = 0.389045s
+StdDev = 0.020127s
+95% CI = ±0.003945s
+Run experiment for: BAY.perc_5.gr
+Mean = 0.444888s
+StdDev = 0.023857s
+95% CI = ±0.004676s
+Run experiment for: NY.perc_3.gr
+Mean = 0.389233s
+StdDev = 0.024701s
+95% CI = ±0.004841s
+Run experiment for: BAY.perc_13.gr
+Mean = 0.385042s
+StdDev = 0.024579s
+95% CI = ±0.004818s
+Run experiment for: NW.perc_15.gr
+Mean = 1.840026s
+StdDev = 0.190866s
+95% CI = ±0.017410s
+Run experiment for: COL.perc_5.gr
+Mean = 0.507935s
+StdDev = 0.023414s
+95% CI = ±0.004589s
