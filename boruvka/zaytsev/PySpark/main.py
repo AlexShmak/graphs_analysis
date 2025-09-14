@@ -7,6 +7,7 @@ from pyspark import StorageLevel
 from pyspark.sql.functions import broadcast
 import time
 import math
+import os
 
 logger = logging.getLogger("experiments")
 logger.setLevel(logging.INFO)
@@ -14,6 +15,11 @@ hdl = logging.FileHandler("results.log")
 formatter = logging.Formatter("%(message)s")
 hdl.setFormatter(formatter)
 logger.addHandler(hdl)
+
+os.environ["JAVA_TOOL_OPTIONS"] = "-Xmx32g"
+os.environ["PYSPARK_SUBMIT_ARGS"] = (
+    "--conf spark.driver.extraJavaOptions=-Dlog4j2.formatMsgNoLookups=true pyspark-shell"
+)
 
 
 class BoruvkasMST:
@@ -41,12 +47,19 @@ class BoruvkasMST:
 
         # Create DataFrame from edges
         edges_df = self.spark.createDataFrame(edges_data, edge_schema).persist(
-            StorageLevel.MEMORY_ONLY
+            StorageLevel.MEMORY_AND_DISK
         )
 
         # Initialize Union-Find structure
         components = list(range(vertices_count))
         mst_edges = []
+
+        component_schema = StructType(
+            [
+                StructField("vertex", IntegerType(), True),
+                StructField("component", IntegerType(), True),
+            ]
+        )
 
         while True:
             # Create component mapping DataFrame
@@ -54,21 +67,19 @@ class BoruvkasMST:
             component_data = [
                 (i, self._find_root(components, i)) for i in range(vertices_count)
             ]
-            component_schema = StructType(
-                [
-                    StructField("vertex", IntegerType(), True),
-                    StructField("component", IntegerType(), True),
-                ]
-            )
             component_df = self.spark.createDataFrame(
                 component_data, component_schema
-            ).persist(StorageLevel.MEMORY_ONLY)
+            ).persist(StorageLevel.MEMORY_AND_DISK)
 
             # Add component information to edges
             edges_with_comp = (
                 edges_df.alias("e")
-                .join(broadcast(component_df.alias("c1")), col("e.u") == col("c1.vertex"))
-                .join(broadcast(component_df.alias("c2")), col("e.v") == col("c2.vertex"))
+                .join(
+                    broadcast(component_df.alias("c1")), col("e.u") == col("c1.vertex")
+                )
+                .join(
+                    broadcast(component_df.alias("c2")), col("e.v") == col("c2.vertex")
+                )
                 .select(
                     col("e.u"),
                     col("e.v"),
@@ -77,7 +88,7 @@ class BoruvkasMST:
                     col("c2.component").alias("comp_v"),
                 )
                 .filter(col("comp_u") != col("comp_v"))
-                .persist(StorageLevel.MEMORY_ONLY)
+                .persist(StorageLevel.MEMORY_AND_DISK)
             )  # Only edges between different components
 
             component_df.unpersist()
@@ -90,14 +101,14 @@ class BoruvkasMST:
             # We need to consider edges from both directions for each component
             edges_from_u = edges_with_comp.select(
                 col("comp_u").alias("component"), col("u"), col("v"), col("weight")
-            ).persist(StorageLevel.MEMORY_ONLY)
+            ).persist(StorageLevel.MEMORY_AND_DISK)
 
             edges_from_v = edges_with_comp.select(
                 col("comp_v").alias("component"),
                 col("v").alias("u"),
                 col("u").alias("v"),
                 col("weight"),
-            ).persist(StorageLevel.MEMORY_ONLY)
+            ).persist(StorageLevel.MEMORY_AND_DISK)
 
             edges_with_comp.unpersist()
 
@@ -118,7 +129,7 @@ class BoruvkasMST:
                     first("v").alias("v"),
                     first("weight").alias("weight"),
                 )
-                .persist(StorageLevel.MEMORY_ONLY)
+                .persist(StorageLevel.MEMORY_AND_DISK)
             )
 
             all_component_edges.unpersist()
@@ -170,7 +181,7 @@ class BoruvkasMST:
 
 
 def read_dimacs_file(file: Path) -> tuple[int, list[tuple[int, int, int]]]:
-    edges = []
+    edges = set()
     max_node = 0
 
     with file.open() as f:
@@ -178,10 +189,12 @@ def read_dimacs_file(file: Path) -> tuple[int, list[tuple[int, int, int]]]:
             if line.startswith("a"):
                 _, u, v, w = line.strip().split()
                 u, v, w = int(u), int(v), int(w)
-                edges.append((u, v, w))
+                edges.add((min(u, v), max(u, v), w))
                 max_node = max(max_node, u, v)
 
-    return max_node, edges
+    print("!!!", len(edges))
+
+    return max_node, list(edges)
 
 
 def warm_up(mst: BoruvkasMST):
@@ -222,6 +235,7 @@ def run_tests(mst: BoruvkasMST):
 
 REPEATS = 5
 
+
 def run_experiment(mst: BoruvkasMST, filename: Path):
     vertices_count, edges = read_dimacs_file(filename)
 
@@ -234,7 +248,7 @@ def run_experiment(mst: BoruvkasMST, filename: Path):
             mst.find_mst(edges, vertices_count)
         except Exception as e:
             logger.error(f"Error in Boruvka! : {str(e)}\n")
-            time_array.append(time_array[-1])
+            time_array.append(time_array[0])
             mst.stop()
             mst = BoruvkasMST()
             continue
@@ -254,25 +268,29 @@ def run_experiment(mst: BoruvkasMST, filename: Path):
     logger.info(f"StdDev = {stddev:.6f}s")
     logger.info(f"95% CI = ±{margin:.6f}s")
 
+
 def run_experiments_on_dataset(mst: BoruvkasMST, folder: Path):
     if not folder.is_dir():
         print(f"opendir failed: {folder} is not a directory.")
         return
 
     for entry in folder.iterdir():
-        if not entry.is_file():
+        if not entry.is_file() or "CAL" in entry.name or "LKS" in entry.name:
             continue  # skip directories or other non-files
 
         print(f"Run experiment for: {entry.name}")
         logger.info(f"Run experiment for: {entry.name}")
 
-        run_experiment(mst, entry)
+        try:
+            run_experiment(mst, entry)
+        except Exception as ex:
+            logger.error(f"Experiment error: {ex}.")
 
 
 if __name__ == "__main__":
     mst = BoruvkasMST()
 
-    # run_tests(mst)
-    # warm_up(mst)
+    run_tests(mst)
+    warm_up(mst)
 
-    run_experiment(mst, Path("../dataset/NE.gr"))
+    run_experiment(mst, Path("../dataset/COL.gr"))
