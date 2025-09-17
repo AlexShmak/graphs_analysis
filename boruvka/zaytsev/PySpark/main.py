@@ -8,6 +8,8 @@ from pyspark.sql.functions import broadcast
 import time
 import math
 import os
+import sys
+import gc
 
 logger = logging.getLogger("experiments")
 logger.setLevel(logging.INFO)
@@ -36,6 +38,12 @@ class BoruvkasMST:
         self.spark.sparkContext.setLogLevel("ERROR")
 
     def find_mst(self, edges_data: list[tuple[int, int, int]], vertices_count: int):
+        """Run MST.
+
+        Args:
+            edges_data (list[tuple[int, int, int]]): Edges data. Edges should always be in [0, vertices_count-1] range.
+            vertices_count (int): vertices count.
+        """
         # Define schema for edges
         edge_schema = StructType(
             [
@@ -47,7 +55,7 @@ class BoruvkasMST:
 
         # Create DataFrame from edges
         edges_df = self.spark.createDataFrame(edges_data, edge_schema).persist(
-            StorageLevel.MEMORY_AND_DISK
+            StorageLevel.MEMORY_ONLY
         )
 
         # Initialize Union-Find structure
@@ -69,7 +77,7 @@ class BoruvkasMST:
             ]
             component_df = self.spark.createDataFrame(
                 component_data, component_schema
-            ).persist(StorageLevel.MEMORY_AND_DISK)
+            ).persist(StorageLevel.MEMORY_ONLY)
 
             # Add component information to edges
             edges_with_comp = (
@@ -88,10 +96,10 @@ class BoruvkasMST:
                     col("c2.component").alias("comp_v"),
                 )
                 .filter(col("comp_u") != col("comp_v"))
-                .persist(StorageLevel.MEMORY_AND_DISK)
+                .persist(StorageLevel.MEMORY_ONLY)
             )  # Only edges between different components
 
-            component_df.unpersist()
+            component_df.unpersist(blocking=True)
 
             # Check if we have any edges left (algorithm termination condition)
             if edges_with_comp.count() == 0:
@@ -101,21 +109,21 @@ class BoruvkasMST:
             # We need to consider edges from both directions for each component
             edges_from_u = edges_with_comp.select(
                 col("comp_u").alias("component"), col("u"), col("v"), col("weight")
-            ).persist(StorageLevel.MEMORY_AND_DISK)
+            ).persist(StorageLevel.MEMORY_ONLY)
 
             edges_from_v = edges_with_comp.select(
                 col("comp_v").alias("component"),
                 col("v").alias("u"),
                 col("u").alias("v"),
                 col("weight"),
-            ).persist(StorageLevel.MEMORY_AND_DISK)
+            ).persist(StorageLevel.MEMORY_ONLY)
 
-            edges_with_comp.unpersist()
+            edges_with_comp.unpersist(blocking=True)
 
             all_component_edges = edges_from_u.union(edges_from_v)
 
-            edges_from_u.unpersist()
-            edges_from_v.unpersist()
+            edges_from_u.unpersist(blocking=True)
+            edges_from_v.unpersist(blocking=True)
 
             # Find minimum weight edge for each component
             min_edges = (
@@ -129,14 +137,14 @@ class BoruvkasMST:
                     first("v").alias("v"),
                     first("weight").alias("weight"),
                 )
-                .persist(StorageLevel.MEMORY_AND_DISK)
+                .persist(StorageLevel.MEMORY_ONLY)
             )
 
-            all_component_edges.unpersist()
+            all_component_edges.unpersist(blocking=True)
 
             # Collect minimum edges
             selected_edges = min_edges.collect()
-            min_edges.unpersist()
+            min_edges.unpersist(blocking=True)
 
             if not selected_edges:
                 break
@@ -163,6 +171,11 @@ class BoruvkasMST:
 
         return mst_edges
 
+    def clean(self):
+        self.spark.catalog.clearCache()
+        self.spark.sparkContext._jsc.getPersistentRDDs().clear()
+        gc.collect()
+
     def stop(self):
         self.spark.stop()
 
@@ -182,24 +195,24 @@ class BoruvkasMST:
 
 def read_dimacs_file(file: Path) -> tuple[int, list[tuple[int, int, int]]]:
     edges = set()
-    max_node = 0
+    vertices_count = 1
 
     with file.open() as f:
         for line in f:
+            if line.startswith("p"):
+                _, _, vertices_count, _ = line.strip().split()
+                vertices_count = int(vertices_count)
             if line.startswith("a"):
                 _, u, v, w = line.strip().split()
                 u, v, w = int(u), int(v), int(w)
-                edges.add((min(u, v), max(u, v), w))
-                max_node = max(max_node, u, v)
+                edges.add((min(u, v) - 1, max(u, v) - 1, w))
 
-    print("!!!", len(edges))
-
-    return max_node, list(edges)
+    return vertices_count, list(edges)
 
 
 def warm_up(mst: BoruvkasMST):
     print("Starting warm-up...")
-    vertices_count, edges = read_dimacs_file(Path("../dataset/NY.gr"))
+    vertices_count, edges = read_dimacs_file(Path("../dataset-dimacs/NY.gr"))
     mst.find_mst(edges, vertices_count)
     print("Warm-up completed successfully.")
 
@@ -220,20 +233,23 @@ def run_tests(mst: BoruvkasMST):
         (3, 1, 1),
         (2, 0, 1),
     ]
-    vertices_count = 5
+    vertices_count = 4
 
     res = mst.find_mst(edges, vertices_count)
 
-    assert res == [(0, 2, 1), (1, 3, 1), (0, 1, 10)], res
+    assert res == [(0, 2, 1), (1, 3, 1), (1, 2, 10)], res
 
     # test 2
-    vertices, edges = read_dimacs_file(Path("../graph-utils/test-graph.gr"))
-    assert vertices == 5
-    assert len(edges) == 10
-    assert edges[9] == (1, 4, 3)
+    vertices_count, edges = read_dimacs_file(Path("../graph-utils/test-graph.gr"))
+    assert vertices_count == 5
+    assert len(edges) == 7, edges
+
+    res = mst.find_mst(edges, vertices_count)
+
+    assert res == [(1, 4, 8), (1, 2, 4), (0, 3, 3), (0, 1, 5)], res
 
 
-REPEATS = 5
+REPEATS = 100
 
 
 def run_experiment(mst: BoruvkasMST, filename: Path):
@@ -243,26 +259,19 @@ def run_experiment(mst: BoruvkasMST, filename: Path):
 
     for _ in range(REPEATS):
         start = time.monotonic()
-
-        try:
-            mst.find_mst(edges, vertices_count)
-        except Exception as e:
-            logger.error(f"Error in Boruvka! : {str(e)}\n")
-            time_array.append(time_array[0])
-            mst.stop()
-            mst = BoruvkasMST()
-            continue
-
+        mst.find_mst(edges, vertices_count)
         end = time.monotonic()
-        time_spent = end - start
-        time_array.append(time_spent)
+        time_array.append(end - start)
+        mst.clean()
+    
+    filename.unlink()
 
     # --- Statistics ---
-    mean = sum(time_array) / REPEATS
-    variance = sum((t - mean) ** 2 for t in time_array) / (REPEATS - 1)
+    mean = sum(time_array) / len(time_array)
+    variance = sum((t - mean) ** 2 for t in time_array) / (len(time_array) - 1)
     stddev = math.sqrt(variance)
     z = 1.96
-    margin = z * (stddev / math.sqrt(REPEATS))
+    margin = z * (stddev / math.sqrt(len(time_array)))
 
     logger.info(f"Mean = {mean:.6f}s")
     logger.info(f"StdDev = {stddev:.6f}s")
@@ -275,22 +284,24 @@ def run_experiments_on_dataset(mst: BoruvkasMST, folder: Path):
         return
 
     for entry in folder.iterdir():
-        if not entry.is_file() or "CAL" in entry.name or "LKS" in entry.name:
-            continue  # skip directories or other non-files
+        if not entry.is_file():
+            continue
 
         print(f"Run experiment for: {entry.name}")
         logger.info(f"Run experiment for: {entry.name}")
 
-        try:
-            run_experiment(mst, entry)
-        except Exception as ex:
-            logger.error(f"Experiment error: {ex}.")
+        run_experiment(mst, entry)
 
 
 if __name__ == "__main__":
     mst = BoruvkasMST()
-
-    run_tests(mst)
     warm_up(mst)
+    run_tests(mst)
 
-    run_experiment(mst, Path("../dataset/COL.gr"))
+    try:
+        run_experiments_on_dataset(mst, Path("../dataset-my/"))
+        run_experiments_on_dataset(mst, Path("../dataset-my/ext-dataset-exp1"))
+        run_experiments_on_dataset(mst, Path("../dataset-my/ext-dataset-exp2"))
+    except Exception as e:
+        logger.error(f"Experiment error: {e}.")
+        sys.exit(1)
