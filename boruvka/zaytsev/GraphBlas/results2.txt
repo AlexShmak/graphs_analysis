@@ -1,0 +1,128 @@
+Run experiment for: CAL.gr
+Mean = 2.061985s
+StdDev = 0.148546s
+95% CI = ±0.029115s
+Run experiment for: FLA.gr
+Mean = 1.877159s
+StdDev = 0.235484s
+95% CI = ±0.046155s
+Run experiment for: BAY.gr
+Mean = 0.448784s
+StdDev = 0.025366s
+95% CI = ±0.004972s
+Run experiment for: COL.gr
+Mean = 0.512797s
+StdDev = 0.030843s
+95% CI = ±0.006045s
+Run experiment for: NW.gr
+Mean = 1.800394s
+StdDev = 0.143843s
+95% CI = ±0.028193s
+Run experiment for: LKS.gr
+Mean = 2.666081s
+StdDev = 0.152828s
+95% CI = ±0.029954s
+Run experiment for: NY.gr
+Mean = 0.646493s
+StdDev = 0.040843s
+95% CI = ±0.007045s
+Run experiment for: NE.gr
+Mean = 2.168214s
+StdDev = 0.149639s
+95% CI = ±0.039219s
+Run experiment for: FLA.dist_lognorm.gr
+Mean = 1.934879s
+StdDev = 0.168883s
+95% CI = ±0.033101s
+Run experiment for: NW.dist_uni.gr
+Mean = 1.918265s
+StdDev = 0.132335s
+95% CI = ±0.025938s
+Run experiment for: FLA.dist_uni.gr
+Mean = 1.877537s
+StdDev = 0.172853s
+95% CI = ±0.033879s
+Run experiment for: BAY.dist_exp.gr
+Mean = 0.474481s
+StdDev = 0.026756s
+95% CI = ±0.005244s
+Run experiment for: NY.dist_lognorm.gr
+Mean = 0.385003s
+StdDev = 0.023051s
+95% CI = ±0.004518s
+Run experiment for: NW.dist_exp.gr
+Mean = 1.887701s
+StdDev = 0.184927s
+95% CI = ±0.036246s
+Run experiment for: LKS.dist_exp.gr
+Mean = 2.718029s
+StdDev = 0.167333s
+95% CI = ±0.032797s
+Run experiment for: FLA.dist_exp.gr
+Mean = 1.905852s
+StdDev = 0.174890s
+95% CI = ±0.034278s
+Run experiment for: NE.dist_lognorm.gr
+Mean = 1.940010s
+StdDev = 0.092696s
+95% CI = ±0.018168s
+Run experiment for: COL.dist_uni.gr
+Mean = 0.490991s
+StdDev = 0.022710s
+95% CI = ±0.004451s
+Run experiment for: NY.dist_uni.gr
+Mean = 0.389878s
+StdDev = 0.022457s
+95% CI = ±0.004402s
+Run experiment for: COL.dist_lognorm.gr
+Mean = 0.485786s
+StdDev = 0.024785s
+95% CI = ±0.004858s
+Run experiment for: NY.dist_exp.gr
+Mean = 0.391173s
+StdDev = 0.029127s
+95% CI = ±0.005709s
+Run experiment for: NE.dist_uni.gr
+Mean = 1.927702s
+StdDev = 0.111633s
+95% CI = ±0.021880s
+Run experiment for: LKS.dist_lognorm.gr
+Mean = 2.732643s
+StdDev = 0.144851s
+95% CI = ±0.028391s
+Run experiment for: LKS.dist_uni.gr
+Mean = 2.722379s
+StdDev = 0.138455s
+95% CI = ±0.027137s
+Run experiment for: NW.dist_lognorm.gr
+Mean = 1.885458s
+StdDev = 0.158709s
+95% CI = ±0.031107s
+Run experiment for: BAY.dist_lognorm.gr
+Mean = 0.445229s
+StdDev = 0.019686s
+95% CI = ±0.003859s
+Run experiment for: CAL.dist_exp.gr
+Mean = 1.940093s
+StdDev = 0.120497s
+95% CI = ±0.023617s
+Run experiment for: COL.dist_exp.gr
+Mean = 0.496674s
+StdDev = 0.025687s
+95% CI = ±0.005035s
+Run experiment for: CAL.dist_lognorm.gr
+Mean = 1.980105s
+StdDev = 0.106147s
+95% CI = ±0.020805s
+Run experiment for: NE.dist_exp.gr
+Mean = 1.951841s
+StdDev = 0.146126s
+95% CI = ±0.028641s
+Run experiment for: CAL.dist_uni.gr
+Mean = 2.073435s
+StdDev = 0.121331s
+95% CI = ±0.023781s
+Run experiment for: BAY.dist_uni.gr
+Mean = 0.445607s
+StdDev = 0.028227s
+95% CI = ±0.005532s

@@ -1,0 +1,294 @@
+Run experiment for: BER.gr
+Mean = 8.986695s
+StdDev = 0.302459s
+95% CI = ±0.083837s
+Run experiment for: LON.gr
+Mean = 14.147020s
+StdDev = 0.393970s
+95% CI = ±0.109203s
+Run experiment for: TOR.gr
+Mean = 8.403611s
+StdDev = 0.482557s
+95% CI = ±0.133758s
+Run experiment for: SYD.gr
+Mean = 12.946869s
+StdDev = 0.405224s
+95% CI = ±0.112322s
+Run experiment for: SAO.gr
+Mean = 13.702937s
+StdDev = 0.314739s
+95% CI = ±0.087241s
+Run experiment for: MOS.gr
+Mean = 8.929132s
+StdDev = 0.184678s
+95% CI = ±0.051190s
+Run experiment for: DUB.gr
+Mean = 10.159454s
+StdDev = 0.263439s
+95% CI = ±0.073021s
+Run experiment for: MOS.perc_10.gr
+Mean = 8.602974s
+StdDev = 0.286076s
+95% CI = ±0.079296s
+Run experiment for: MOS.perc_13.gr
+Mean = 8.694366s
+StdDev = 0.230234s
+95% CI = ±0.063817s
+Run experiment for: DUB.perc_10.gr
+Mean = 10.112159s
+StdDev = 0.467681s
+95% CI = ±0.129635s
+Run experiment for: MOS.perc_15.gr
+Mean = 8.867174s
+StdDev = 0.200077s
+95% CI = ±0.055459s
+Run experiment for: LON.perc_15.gr
+Mean = 15.024628s
+StdDev = 0.224495s
+95% CI = ±0.062227s
+Run experiment for: SYD.perc_13.gr
+Mean = 12.118211s
+StdDev = 0.385876s
+95% CI = ±0.106959s
+Run experiment for: SYD.perc_3.gr
+Mean = 12.234586s
+StdDev = 0.255023s
+95% CI = ±0.070689s
+Run experiment for: TOR.perc_10.gr
+Mean = 8.337610s
+StdDev = 0.430980s
+95% CI = ±0.119461s
+Run experiment for: DUB.perc_13.gr
+Mean = 10.134961s
+StdDev = 0.232193s
+95% CI = ±0.064361s
+Run experiment for: TOR.perc_7.gr
+Mean = 8.146991s
+StdDev = 0.265231s
+95% CI = ±0.073518s
+Run experiment for: SYD.perc_10.gr
+Mean = 12.295964s
+StdDev = 0.324259s
+95% CI = ±0.089880s
+Run experiment for: DUB.perc_5.gr
+Mean = 9.589885s
+StdDev = 0.870233s
+95% CI = ±0.241216s
+Run experiment for: SYD.perc_1.gr
+Mean = 12.739602s
+StdDev = 0.298985s
+95% CI = ±0.082874s
+Run experiment for: TOR.perc_5.gr
+Mean = 8.636212s
+StdDev = 0.188196s
+95% CI = ±0.052165s
+Run experiment for: LON.perc_3.gr
+Mean = 13.457487s
+StdDev = 0.182991s
+95% CI = ±0.050723s
+Run experiment for: SYD.perc_5.gr
+Mean = 11.886951s
+StdDev = 0.164819s
+95% CI = ±0.045685s
+Run experiment for: DUB.perc_1.gr
+Mean = 8.956872s
+StdDev = 0.367429s
+95% CI = ±0.101846s
+Run experiment for: BER.perc_1.gr
+Mean = 8.002917s
+StdDev = 0.584877s
+95% CI = ±0.162120s
+Run experiment for: MOS.perc_5.gr
+Mean = 7.948042s
+StdDev = 0.243326s
+95% CI = ±0.067447s
+Run experiment for: SYD.perc_7.gr
+Mean = 12.009447s
+StdDev = 0.149731s
+95% CI = ±0.041503s
+Run experiment for: LON.perc_10.gr
+Mean = 13.846481s
+StdDev = 1.069419s
+95% CI = ±0.296428s
+Run experiment for: TOR.perc_13.gr
+Mean = 8.182570s
+StdDev = 0.150255s
+95% CI = ±0.041649s
+Run experiment for: DUB.perc_3.gr
+Mean = 9.533457s
+StdDev = 0.381045s
+95% CI = ±0.105620s
+Run experiment for: MOS.perc_3.gr
+Mean = 7.894028s
+StdDev = 0.182023s
+95% CI = ±0.050454s
+Run experiment for: MOS.perc_1.gr
+Mean = 8.023719s
+StdDev = 0.221566s
+95% CI = ±0.061415s
+Run experiment for: BER.perc_7.gr
+Mean = 7.961561s
+StdDev = 0.215898s
+95% CI = ±0.059844s
+Run experiment for: LON.perc_1.gr
+Mean = 13.856739s
+StdDev = 1.059997s
+95% CI = ±0.293816s
+Run experiment for: BER.perc_15.gr
+Mean = 8.719651s
+StdDev = 0.496705s
+95% CI = ±0.137680s
+Run experiment for: SAO.perc_7.gr
+Mean = 12.380889s
+StdDev = 0.221123s
+95% CI = ±0.061292s
+Run experiment for: TOR.perc_1.gr
+Mean = 8.172162s
+StdDev = 0.144839s
+95% CI = ±0.040147s
+Run experiment for: SAO.perc_1.gr
+Mean = 13.163994s
+StdDev = 3.495173s
+95% CI = ±0.968813s
+Run experiment for: TOR.perc_3.gr
+Mean = 8.296507s
+StdDev = 0.276112s
+95% CI = ±0.076534s
+Run experiment for: BER.perc_3.gr
+Mean = 7.972074s
+StdDev = 0.224726s
+95% CI = ±0.062291s
+Run experiment for: SAO.perc_13.gr
+Mean = 12.105393s
+StdDev = 0.194051s
+95% CI = ±0.053788s
+Run experiment for: LON.perc_5.gr
+Mean = 13.483175s
+StdDev = 0.260734s
+95% CI = ±0.072272s
+Run experiment for: SYD.perc_15.gr
+Mean = 12.002783s
+StdDev = 0.243412s
+95% CI = ±0.067470s
+Run experiment for: SAO.perc_3.gr
+Mean = 12.378092s
+StdDev = 0.144368s
+95% CI = ±0.040017s
+Run experiment for: LON.perc_7.gr
+Mean = 12.504334s
+StdDev = 0.745619s
+95% CI = ±0.206675s
+Run experiment for: BER.perc_10.gr
+Mean = 8.820369s
+StdDev = 0.372440s
+95% CI = ±0.103235s
+Run experiment for: SAO.perc_5.gr
+Mean = 12.486688s
+StdDev = 0.176322s
+95% CI = ±0.048874s
+Run experiment for: MOS.perc_7.gr
+Mean = 8.222912s
+StdDev = 0.179724s
+95% CI = ±0.049817s
+Run experiment for: SAO.perc_10.gr
+Mean = 11.670158s
+StdDev = 0.192060s
+95% CI = ±0.053236s
+Run experiment for: DUB.perc_15.gr
+Mean = 9.475489s
+StdDev = 0.212917s
+95% CI = ±0.059018s
+Run experiment for: SAO.perc_15.gr
+Mean = 11.639116s
+StdDev = 0.305556s
+95% CI = ±0.084696s
+Run experiment for: MOS.dist_uni.gr
+Mean = 7.656099s
+StdDev = 0.890024s
+95% CI = ±0.246702s
+Run experiment for: MOS.dist_lognorm.gr
+Mean = 7.580673s
+StdDev = 0.171597s
+95% CI = ±0.047564s
+Run experiment for: SYD.dist_uni.gr
+Mean = 11.635190s
+StdDev = 0.131881s
+95% CI = ±0.036556s
+Run experiment for: MOS.dist_exp.gr
+Mean = 7.749531s
+StdDev = 0.256237s
+95% CI = ±0.071025s
+Run experiment for: TOR.dist_uni.gr
+Mean = 8.216724s
+StdDev = 0.932650s
+95% CI = ±0.258517s
+Run experiment for: SAO.dist_exp.gr
+Mean = 12.443602s
+StdDev = 0.388567s
+95% CI = ±0.107705s
+Run experiment for: LON.dist_lognorm.gr
+Experiment error: [Errno 111] Connection refused.
+Run experiment for: LON.dist_lognorm.gr
+Mean = 12.131858s
+StdDev = 0.357055s
+95% CI = ±0.098971s
+Run experiment for: TOR.dist_lognorm.gr
+Mean = 8.684367s
+StdDev = 0.455348s
+95% CI = ±0.126216s
+Run experiment for: BER.dist_exp.gr
+Mean = 7.547691s
+StdDev = 0.224402s
+95% CI = ±0.062201s
+Run experiment for: DUB.dist_uni.gr
+Experiment error: [Errno 111] Connection refused.
+Run experiment for: DUB.dist_uni.gr
+Mean = 10.131033s
+StdDev = 0.176631s
+95% CI = ±0.048960s
+Run experiment for: SAO.dist_lognorm.gr
+Mean = 12.501164s
+StdDev = 0.267305s
+95% CI = ±0.074093s
+Run experiment for: TOR.dist_exp.gr
+Mean = 8.095612s
+StdDev = 0.455990s
+95% CI = ±0.126394s
+Run experiment for: LON.dist_exp.gr
+Mean = 12.642990s
+StdDev = 0.618338s
+95% CI = ±0.171395s
+Run experiment for: DUB.dist_exp.gr
+Mean = 10.231769s
+StdDev = 0.404308s
+95% CI = ±0.112068s
+Run experiment for: LON.dist_uni.gr
+Mean = 13.769986s
+StdDev = 0.271366s
+95% CI = ±0.075219s
+Run experiment for: SYD.dist_lognorm.gr
+Mean = 12.948810s
+StdDev = 3.556092s
+95% CI = ±0.985698s
+Run experiment for: SYD.dist_exp.gr
+Mean = 11.288907s
+StdDev = 0.261548s
+95% CI = ±0.072498s
+Run experiment for: DUB.dist_lognorm.gr
+Mean = 10.613505s
+StdDev = 0.292973s
+95% CI = ±0.081208s
+Run experiment for: SAO.dist_uni.gr
+Experiment error: [Errno 111] Connection refused.
+Run experiment for: SAO.dist_uni.gr
+Mean = 12.500580s
+StdDev = 0.279170s
+95% CI = ±0.077382s
+Run experiment for: BER.dist_uni.gr
+Mean = 8.192293s
+StdDev = 0.124411s
+95% CI = ±0.034485s
+Run experiment for: BER.dist_lognorm.gr
+Mean = 8.003163s
+StdDev = 0.352998s
+95% CI = ±0.097846s
