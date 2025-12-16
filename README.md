@@ -14,6 +14,18 @@
 
 ---
 
+## Борувка (Ермолович)
+### Эксперимент
+**Цель**: Исследовать масштабируемость `Pregel+` для алгоритма **Борувки** — как изменяется время выполнения и эффективность при увеличении числа процессов — на разных графах из датасета.
+
+---
+
+## MS-Parent BFS (Ермолович)
+### Эксперимент
+**Цель**: Исследовать масштабируемость `Pregel+` для алгоритма **MS-Parent BFS** — как изменяется время выполнения и эффективность при увеличении числа процессов — на разных графах из датасета.
+
+---
+
 ## Реализации
 - Зайцев (GraphBlas, PySpark): 
      - [GraphBlas](boruvka/zaytsev/GraphBlas/)
@@ -25,3 +37,8 @@
      - [Apache Giraph](boruvka/shmakov/ApacheGiraph)
      - [Утилиты для эксперимента](boruvka/shmakov/experiment_utils)
      - [Презентации](boruvka/shmakov/pres)
+- Ермолович (Pregel+): 
+     - [Boruvka](boruvka/ermolovich/pregelplus/pregel_experiment.ipynb)
+     - [MS-BFS](boruvka/ermolovich/pregelplus/pregel_experiment.ipynb)
+     - [Презентации Boruvka](boruvka/ermolovich/pres)
+     - [Презентации MS-BFS](msbfs/ermolovich/pres)
